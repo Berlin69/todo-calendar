@@ -21,8 +21,9 @@ export const Calendar = () => {
 
   // Получаем массив дат текущего месяца
   const monthDays = Array.from(
-    { length: new Date(currentYear, currentMonth, 0).getDate() },
+    { length: new Date(currentYear, currentMonth + 1, 0).getDate() },
     (item, i) => {
+      console.log(i);
       return new Date(currentYear, currentMonth, i + 1);
     }
   );
@@ -59,16 +60,16 @@ export const Calendar = () => {
         <div className="flex items-center gap-2">
           <button
             onClick={handleDecreaseMonth}
-            className="p-1 rounded-full bg-red-300 flex items-center justify-center"
+            className="p-1 rounded-full bg-plt-accent flex items-center justify-center"
           >
             <IconArrowLeft size={16} stroke="#fff" />
           </button>
-          <h2 className="text-center text-xl text-white bg-red-300 rounded-full px-2 min-w-40">
+          <h2 className="text-center text-xl text-white bg-plt-accent/20 rounded-full px-2 min-w-40">
             {monthNames[currentMonth]}
           </h2>
           <button
             onClick={handleIncreaseMonth}
-            className="p-1 rounded-full bg-red-300 flex items-center justify-center"
+            className="p-1 rounded-full bg-plt-accent flex items-center justify-center"
           >
             <IconArrowRight size={16} stroke="#fff" />
           </button>
@@ -76,16 +77,16 @@ export const Calendar = () => {
         <div className="flex items-center gap-2">
           <button
             onClick={handleDecreaseYear}
-            className="p-1 rounded-full bg-red-300 flex items-center justify-center"
+            className="p-1 rounded-full bg-plt-accent flex items-center justify-center"
           >
             <IconArrowLeft size={16} stroke="#fff" />
           </button>
-          <h2 className="text-center text-white bg-red-300 text-xl rounded-full px-2">
+          <h2 className="text-center text-white bg-plt-accent/20 text-xl rounded-full px-5">
             {currentYear}
           </h2>
           <button
             onClick={handleIncreaseYear}
-            className="p-1 rounded-full bg-red-300 flex items-center justify-center"
+            className="p-1 rounded-full bg-plt-accent flex items-center justify-center"
           >
             <IconArrowRight size={16} stroke="#fff" />
           </button>
@@ -99,7 +100,7 @@ export const Calendar = () => {
           </div>
         ))}
         {emptyDays.map((emptyDay) => (
-          <div key={emptyDay} className="rounded-lg bg-gray-200"></div>
+          <div key={emptyDay} className="rounded-lg bg-plt-accent/5"></div>
         ))}
         {monthDays.map((item) => {
           return <CardDay key={item.getDate()} day={item} />;
