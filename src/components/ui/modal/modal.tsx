@@ -1,7 +1,7 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import { IconCloseCross } from '../../icons/icon-close-cross.tsx';
-import { monthNames } from '../../../lib/data/month-names.ts';
+import { monthNamesForModal } from '../../../lib/data/month-names.ts';
 import { CardTaskEditable } from '../card-task-editable/card-task-editable.tsx';
 import { IconPlus } from '../../icons/icon-plus.tsx';
 
@@ -22,7 +22,6 @@ export const Modal = ({
 }: ModalProps) => {
   const handleCloseClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    console.log('Clicked!');
   };
   // tasks.tasks.push({ year: '2000' });
 
@@ -44,7 +43,8 @@ export const Modal = ({
             <p className="font-medium text-plt-white/50 flex">
               Задачи на{' '}
               <span className="bg-plt-accent/20 rounded-full ml-2 px-3 text-plt-white">
-                {day.getDate()} {monthNames[day.getMonth()]} {day.getFullYear()}
+                {day.getDate()} {monthNamesForModal[day.getMonth()]}{' '}
+                {day.getFullYear()}
               </span>
             </p>
             <button onClick={onClose}>

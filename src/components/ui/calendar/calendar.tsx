@@ -5,7 +5,7 @@ import { IconArrowLeft } from '../../icons/icon-arrow-left.tsx';
 import { IconArrowRight } from '../../icons/icon-arrow-right.tsx';
 import { CardDay } from '../card-day/card-day.tsx';
 import { useCalendarStore } from '../../../lib/stores/calendar-store.tsx';
-import { getTasks } from '../../../lib/data/local-storage.ts';
+import { weekDays } from '../../../lib/data/week-days-names.ts';
 
 export const Calendar = () => {
   const currentMonth = useCalendarStore((state) => state.selectedMonth);
@@ -15,13 +15,6 @@ export const Calendar = () => {
   const currentYear = useCalendarStore((state) => state.selectedYear);
   const increaseYear = useCalendarStore((state) => state.increaseYear);
   const decreaseYear = useCalendarStore((state) => state.decreaseYear);
-
-  // const [currentDate, setCurrentDate] = useState(new Date());
-  // const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
-  // const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
-
-  // массив с днями недели
-  const weekDays = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
 
   // Получаем певый день текущего месяца
   const firstDay = new Date(currentYear, currentMonth, 1);
@@ -36,8 +29,6 @@ export const Calendar = () => {
       return new Date(currentYear, currentMonth, i + 1);
     }
   );
-
-  console.log(getTasks());
 
   // предыдущий/следующий месяц
   const handleDecreaseMonth = () => {
@@ -66,7 +57,7 @@ export const Calendar = () => {
   };
 
   return (
-    <div className="p-5">
+    <div className="p-5 min-h-screen">
       <div className="flex justify-center gap-3">
         <div className="flex items-center gap-2">
           <button
@@ -104,14 +95,20 @@ export const Calendar = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-1 mt-5">
+      <div className="grid grid-cols-7 gap-1 mt-5 md:grid-cols-4 sm:grid-cols-1">
         {weekDays.map((day) => (
-          <div key={day} className="border rounded-lg text-center">
-            {day}
+          <div
+            key={day}
+            className="border border-plt-accent/80 rounded-lg text-center lg:hidden"
+          >
+            <span className="font-semibold">{day}</span>
           </div>
         ))}
         {emptyDays.map((emptyDay) => (
-          <div key={emptyDay} className="rounded-lg bg-plt-accent/5"></div>
+          <div
+            key={emptyDay}
+            className="rounded-lg bg-plt-accent/5 lg:hidden"
+          ></div>
         ))}
         {monthDays.map((item) => {
           return <CardDay key={item.getDate()} day={item} />;

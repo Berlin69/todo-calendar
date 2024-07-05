@@ -4,6 +4,7 @@ import cn from 'clsx';
 import { Modal } from '../modal/modal.tsx';
 import { getDayTasks } from '../../../lib/utils/get-day-tasks.ts';
 import { useCalendarStore } from '../../../lib/stores/calendar-store.tsx';
+import { weekDays } from '../../../lib/data/week-days-names.ts';
 
 interface CardDayProps {
   day: Date;
@@ -18,9 +19,6 @@ export const CardDay = ({ day }: CardDayProps) => {
     { task: string; isFinished: boolean }[]
   >([]);
 
-  // console.log('currentMonth', currentMonth);
-  // console.log('currentYear', currentYear);
-
   useEffect(() => {
     const dayTasks = getDayTasks(currentYear, currentMonth, day.getDate());
     setTasksForDay(dayTasks);
@@ -34,8 +32,6 @@ export const CardDay = ({ day }: CardDayProps) => {
     setOpen(false);
   };
 
-  console.log(day.getDay());
-
   const currentDate = new Date();
   return (
     <React.Fragment>
@@ -47,25 +43,28 @@ export const CardDay = ({ day }: CardDayProps) => {
             day.getFullYear() === currentDate.getFullYear() &&
               day.getMonth() === currentDate.getMonth() &&
               day.getDate() === currentDate.getDate() &&
-              '!bg-plt-accent/10',
+              '!bg-plt-accent/60 border-plt-accent',
           ],
-          [day.getDay() === 6 && 'bg-purple-400/20'],
-          [day.getDay() === 0 && 'bg-purple-400/20']
+          [day.getDay() === 6 && 'bg-blue-400/15'],
+          [day.getDay() === 0 && 'bg-blue-400/15']
         )}
       >
         <div className="w-full text-end">
-          <div
-            className={cn(
-              'w-7 h-7 bg-plt-accent/40 rounded-full flex justify-center items-center ml-auto',
-              [
-                day.getFullYear() === currentDate.getFullYear() &&
-                  day.getMonth() === currentDate.getMonth() &&
-                  day.getDate() === currentDate.getDate() &&
-                  '!bg-plt-accent/100',
-              ]
-            )}
-          >
-            <span className="text-white">{day.getDate()}</span>
+          <div className="flex">
+            <span>{weekDays[day.getDay()]}</span>
+            <div
+              className={cn(
+                'w-7 h-7 bg-plt-accent/40 rounded-full flex justify-center items-center ml-auto',
+                [
+                  day.getFullYear() === currentDate.getFullYear() &&
+                    day.getMonth() === currentDate.getMonth() &&
+                    day.getDate() === currentDate.getDate() &&
+                    '!bg-plt-accent/100',
+                ]
+              )}
+            >
+              <span className="text-white">{day.getDate()}</span>
+            </div>
           </div>
         </div>
         <div className="">
@@ -74,7 +73,7 @@ export const CardDay = ({ day }: CardDayProps) => {
             {tasksForDay &&
               tasksForDay.map((task: any, index: number) => {
                 if (index < 3) {
-                  return <CardTask key={task} task={task} />;
+                  return <CardTask key={task.task} task={task} />;
                 }
                 return [];
               })}
@@ -83,7 +82,7 @@ export const CardDay = ({ day }: CardDayProps) => {
         </div>
         <div className="h-[24px]">
           {tasksForDay?.length > 2 && (
-            <p className="">+ еще {tasksForDay.length - 3} задач(а)</p>
+            <p className="">+ {tasksForDay.length - 3} задач(а)</p>
           )}
         </div>
       </div>

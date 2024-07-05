@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { IconCloseCross } from '../../icons/icon-close-cross.tsx';
 import { IconEdit } from '../../icons/icon-edit.tsx';
 import { IconDone } from '../../icons/icon-done.tsx';

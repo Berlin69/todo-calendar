@@ -7,7 +7,7 @@ module.exports = {
         'plt-primary': '#09090b',
         'plt-secondary': '#030712',
         'plt-white': '#e5e7eb',
-        'plt-accent': '#7c3aed',
+        'plt-accent': '#2563eb',
       },
       animation: {
         'fade-in': 'fade-in 5s linear ease-in-out',
@@ -19,6 +19,14 @@ module.exports = {
         },
       },
     },
+    screens: {
+      '2xl': { max: '1535px' },
+      xl: { max: '1279px' },
+      lg: { max: '1023px' },
+      md: { max: '767px' },
+      sm: { max: '639px' },
+    },
   },
+
   plugins: [],
 };
