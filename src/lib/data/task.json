@@ -1,0 +1,51 @@
+{
+  "tasks": [
+    {
+      "year": "2024",
+      "tasks": [
+        {
+          "month": "6",
+          "tasks": [
+            {
+              "day": "5",
+              "tasks": [
+                { "task": "Доделать задачи", "isFinished": true },
+                { "task": "Оформить внешний вид", "isFinished": false },
+                { "task": "Поспать", "isFinished": false },
+                { "task": "Сдать тестовое", "isFinished": false }
+              ]
+            },
+            {
+              "day": "6",
+              "tasks": [
+                { "task": "Поспать", "isFinished": false },
+                { "task": "Сдать тестовое", "isFinished": false }
+              ]
+            },
+            {
+              "day": "17",
+              "tasks": [{ "task": "Найти работу", "isFinished": false }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "tasks": [
+        {
+          "month": "6",
+          "tasks": [
+            {
+              "day": "5",
+              "tasks": [
+                { "task": "Доделать задачи", "isFinished": false },
+                { "task": "Оформить внешний вид", "isFinished": false }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

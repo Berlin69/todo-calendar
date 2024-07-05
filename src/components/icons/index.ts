@@ -11,3 +11,5 @@ export * from './icon-close-cross';
 export * from './icon-edit';
 export * from './icon-done';
 export * from './icon-plus';
+export * from './icon-finished';
+export * from './icon-trash';

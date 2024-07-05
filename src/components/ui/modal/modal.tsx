@@ -9,12 +9,25 @@ interface ModalProps {
   onClose: () => void;
   title?: string;
   day: Date;
+  tasks: { task: string; isFinished: boolean }[];
+  setTasksForDay: (array: { task: string; isFinished: boolean }[]) => void;
 }
 
-export const Modal = ({ onClose, title, day }: ModalProps) => {
+export const Modal = ({
+  onClose,
+  title,
+  day,
+  tasks,
+  setTasksForDay,
+}: ModalProps) => {
   const handleCloseClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     console.log('Clicked!');
+  };
+  // tasks.tasks.push({ year: '2000' });
+
+  const handleAddTask = () => {
+    setTasksForDay([...tasks, { task: '', isFinished: false }]);
   };
 
   return (
@@ -30,18 +43,30 @@ export const Modal = ({ onClose, title, day }: ModalProps) => {
           <div className="flex justify-between">
             <p className="font-medium text-plt-white/50 flex">
               Задачи на{' '}
-              <p className="bg-plt-accent/20 rounded-full ml-2 px-3 text-plt-white">
+              <span className="bg-plt-accent/20 rounded-full ml-2 px-3 text-plt-white">
                 {day.getDate()} {monthNames[day.getMonth()]} {day.getFullYear()}
-              </p>
+              </span>
             </p>
             <button onClick={onClose}>
               <IconCloseCross />
             </button>
           </div>
-          <div className="border border-plt-accent/20 rounded-md mt-5 min-h-[200px] max-h-[600px]">
-            <CardTaskEditable />
+          <div className="border border-plt-accent/20 rounded-md mt-5 min-h-[200px] max-h-[600px] overflow-y-scroll card-wrapper">
+            {tasks &&
+              tasks.map((task, index: number) => (
+                <CardTaskEditable
+                  key={task.task}
+                  taskIndex={index}
+                  task={task}
+                  allTasks={tasks}
+                  setTasksForDay={setTasksForDay}
+                />
+              ))}
           </div>
-          <button className="flex justify-center items-center w-full bg-plt-accent rounded-md mt-5 py-3 gap-2">
+          <button
+            onClick={handleAddTask}
+            className="flex justify-center items-center w-full bg-plt-accent rounded-full mt-5 py-3 gap-2"
+          >
             <IconPlus size={20} /> Добавить новую задачу
           </button>
         </div>,

@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { monthNames } from '../../../lib/data/month-names.ts';
 import { createEmptyArray } from '../../../lib/utils/create-empy-array.ts';
 import { IconArrowLeft } from '../../icons/icon-arrow-left.tsx';
 import { IconArrowRight } from '../../icons/icon-arrow-right.tsx';
 import { CardDay } from '../card-day/card-day.tsx';
+import { useCalendarStore } from '../../../lib/stores/calendar-store.tsx';
+import { getTasks } from '../../../lib/data/local-storage.ts';
 
 export const Calendar = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
-  const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
+  const currentMonth = useCalendarStore((state) => state.selectedMonth);
+  const increaseMonth = useCalendarStore((state) => state.increaseMonth);
+  const decreaseMonth = useCalendarStore((state) => state.decreaseMonth);
+  const updateMonth = useCalendarStore((state) => state.updateMonth);
+  const currentYear = useCalendarStore((state) => state.selectedYear);
+  const increaseYear = useCalendarStore((state) => state.increaseYear);
+  const decreaseYear = useCalendarStore((state) => state.decreaseYear);
+
+  // const [currentDate, setCurrentDate] = useState(new Date());
+  // const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
+  // const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
 
   // массив с днями недели
   const weekDays = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
@@ -23,35 +33,36 @@ export const Calendar = () => {
   const monthDays = Array.from(
     { length: new Date(currentYear, currentMonth + 1, 0).getDate() },
     (item, i) => {
-      console.log(i);
       return new Date(currentYear, currentMonth, i + 1);
     }
   );
 
+  console.log(getTasks());
+
   // предыдущий/следующий месяц
   const handleDecreaseMonth = () => {
     if (currentMonth === 0) {
-      setCurrentMonth(11);
-      setCurrentYear(currentYear - 1);
+      updateMonth(11);
+      decreaseYear();
     } else {
-      setCurrentMonth(currentMonth - 1);
+      decreaseMonth();
     }
   };
   const handleIncreaseMonth = () => {
     if (currentMonth === 11) {
-      setCurrentMonth(0);
-      setCurrentYear(currentYear + 1);
+      updateMonth(0);
+      increaseYear();
     } else {
-      setCurrentMonth(currentMonth + 1);
+      increaseMonth();
     }
   };
 
   // предыдущий/следующий год
   const handleDecreaseYear = () => {
-    setCurrentYear(currentYear - 1);
+    decreaseYear();
   };
   const handleIncreaseYear = () => {
-    setCurrentYear(currentYear + 1);
+    increaseYear();
   };
 
   return (
